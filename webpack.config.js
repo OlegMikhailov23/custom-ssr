@@ -3,6 +3,8 @@ import webpack from "webpack";
 import htmlWebpackPlugin from "html-webpack-plugin";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
 
+const isDevelopment = process.env.NODE_ENV !== "production";
+
 /**
  * Load JS and JSX files through Babel
  */
@@ -16,7 +18,7 @@ const babelLoader = {
         options: {
           presets: [
             "@babel/preset-env",
-            ["@babel/preset-react", { 'runtime': "automatic" }],
+            ["@babel/preset-react", { runtime: "automatic" }],
           ],
         },
       },
@@ -32,7 +34,10 @@ const babelLoader = {
 
 const styleLoader = {
   test: /\.css$/,
-  use: [MiniCssExtractPlugin.loader, "css-loader"],
+  use: [
+    isDevelopment ? "style-loader" : MiniCssExtractPlugin.loader,
+    "css-loader",
+  ],
 };
 
 /**

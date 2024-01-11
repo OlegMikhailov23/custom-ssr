@@ -27,7 +27,7 @@ app.use("/static", express.static(path.resolve(__dirname, "../dist")));
 
 const PORT = process.env.PORT || 3000;
 
-app.get('*', async (req, res) => {
+app.get("*", async (req, res) => {
   const indexHtml = await createReactApp(req.url);
   res.status(200).send(indexHtml);
 });
